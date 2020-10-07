@@ -4,6 +4,7 @@ class CreateQuizzes < ActiveRecord::Migration[6.0]
       t.string :category
       t.string :title
       t.string :img_url
+      t.integer :user_created_id
 
       t.timestamps
     end
