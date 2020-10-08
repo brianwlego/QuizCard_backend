@@ -6,8 +6,12 @@ Rails.application.routes.draw do
       resources :users, only: [:create]
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
-      resources :quizzes
-      resources :decks 
+      resources :quizzes do 
+        resources :questions, only: [:update, :show] 
+      end
+      resources :decks do 
+        resources :cards, only: [:update, :show]
+      end
     end
   end
 

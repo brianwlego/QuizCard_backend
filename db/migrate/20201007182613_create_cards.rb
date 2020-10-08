@@ -3,7 +3,8 @@ class CreateCards < ActiveRecord::Migration[6.0]
     create_table :cards do |t|
       t.string :front
       t.string :back
-      t.string :img_url
+      t.string :img_url_front
+      t.string :img_url_back
       t.belongs_to :deck, null: false, foreign_key: true
 
       t.timestamps

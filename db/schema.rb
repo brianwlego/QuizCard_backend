@@ -39,7 +39,8 @@ ActiveRecord::Schema.define(version: 2020_10_07_203821) do
   create_table "cards", force: :cascade do |t|
     t.string "front"
     t.string "back"
-    t.string "img_url"
+    t.string "img_url_front"
+    t.string "img_url_back"
     t.bigint "deck_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -6,5 +6,7 @@ class User < ApplicationRecord
   has_many :quizzes
   has_many :decks
 
+  has_one_attached :profile_picture
+
 
 end
