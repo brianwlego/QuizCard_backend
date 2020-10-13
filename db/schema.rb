@@ -68,10 +68,10 @@ ActiveRecord::Schema.define(version: 2020_10_07_203821) do
 
   create_table "fav_decks", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "quiz_id", null: false
+    t.bigint "deck_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["quiz_id"], name: "index_fav_decks_on_quiz_id"
+    t.index ["deck_id"], name: "index_fav_decks_on_deck_id"
     t.index ["user_id"], name: "index_fav_decks_on_user_id"
   end
 
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 2020_10_07_203821) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cards", "decks"
   add_foreign_key "choices", "questions"
-  add_foreign_key "fav_decks", "quizzes"
+  add_foreign_key "fav_decks", "decks"
   add_foreign_key "fav_decks", "users"
   add_foreign_key "fav_quizzes", "quizzes"
   add_foreign_key "fav_quizzes", "users"

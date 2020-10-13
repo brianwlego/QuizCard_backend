@@ -8,9 +8,13 @@ class Api::V1::DecksController < ApplicationController
 
   def create
     deck = Deck.create(deck_params)
+    if params[:img] != ''
+      deck.profile_picture.attach(params[:img])
+      deck.img_url = url_for(deck.profile_picture)
+    end
     deck.user_created_id = current_user.id
+    deck.save
     if deck.valid?
-      deck.create_cards(params)
       render json: { deck: DeckSerializer.new(deck) }, status: :accepted
     else
       render json: { error: "Failed to create Deck."}, status: :not_acceptable
@@ -22,7 +26,11 @@ class Api::V1::DecksController < ApplicationController
   end
 
   def destroy
-
+    deck = Deck.find(params[:id])
+    if deck.user_created_id == current_user.id
+      deck.destroy
+      render json: { success: "Deck deleted" }
+    end
   end
 
 

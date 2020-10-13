@@ -5,4 +5,8 @@ class UserSerializer < ActiveModel::Serializer
     object.first_name + ' ' + object.last_name
   end
 
+  def profile
+    object.quizzes
+  end
+
 end
