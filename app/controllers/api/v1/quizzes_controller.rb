@@ -6,7 +6,8 @@ class Api::V1::QuizzesController < ApplicationController
 
   def show
     quiz = Quiz.find(params[:id])
-    render json: { quiz: QuizSerializer.new(quiz) }
+    fav_quiz = FavQuiz.find_by(user_id: current_user.id, quiz_id: quiz.id)
+    render json: { quiz: QuizSerializer.new(quiz), fav_quiz: fav_quiz }
   end
 
   def create
@@ -29,7 +30,33 @@ class Api::V1::QuizzesController < ApplicationController
   end
 
   def destroy
+    quiz = Quiz.find(params[:id])
+    quiz.questions.each{|question| question.destroy}
+    quiz.destroy
+    if !quiz.save
+      render json: { success: "Quiz deleted" }, status: :accepted
+    else
+      render json: { error: "Failed to delete quiz" }, status: :not_acceptable
+    end
+  end
 
+  def favorite
+    fav_quiz = FavQuiz.create(quiz_id: params[:quiz_id], user_id: current_user.id)
+    if fav_quiz.valid?
+      render json: { fav_quiz: fav_quiz }, status: :accepted
+    else
+      render json: { error: "Failed to favorite quiz" }, status: :not_acceptable
+    end
+  end
+
+  def unfavorite
+    fav_quiz = FavQuiz.find_by(user_id: current_user.id, quiz_id: params[:quiz_id])
+    fav_quiz.destroy
+    if !fav_quiz.save
+      render json: { success: "Deleted fav_quiz"}, status: :accepted
+    else
+      render json: { error: "Failed to unfavorite quiz"}, status: :not_acceptable
+    end
   end
 
 

@@ -32,8 +32,10 @@ class User < ApplicationRecord
 
   def user_favs
     quizzes = self.quizzes
+    quizzes_array = quizzes.map{|quiz| QuizSerializer.new(quiz)}
     decks = self.decks
-    combined_array = quizzes + decks
+    decks_array = decks.map{|deck| DeckSerializer.new(deck)}
+    combined_array = quizzes_array + decks_array
     return combined_array
   end
 

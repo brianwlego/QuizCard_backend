@@ -9,10 +9,14 @@ Rails.application.routes.draw do
       get '/home', to: 'users#home'
       get '/populate', to: 'users#populate'
       resources :quizzes do 
+        post '/favorite', to: 'quizzes#favorite'
+        delete '/unfavorite', to: 'quizzes#unfavorite'
         resources :questions, only: [:update, :show, :create, :destroy] 
       end
       resources :decks do 
-        resources :cards, only: [:update, :show, :create]
+        post '/favorite', to: 'decks#favorite'
+        delete '/unfavorite', to: 'decks#unfavorite'
+        resources :cards, only: [:update, :show, :create, :destroy]
       end
     end
   end

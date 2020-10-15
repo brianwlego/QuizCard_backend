@@ -7,7 +7,7 @@ class DeckSerializer < ActiveModel::Serializer
   end
 
   def cards
-    object.cards.map{|card| {front: card.front, back: card.back, img_url_front: card.img_url_front, img_url_back: card.img_url_back}}
+    object.cards.map{|card| {id: card.id, front: card.front, back: card.back, img_url_front: card.img_url_front, img_url_back: card.img_url_back}}
   end
 
 end

@@ -3,7 +3,8 @@ class Api::V1::DecksController < ApplicationController
 
   def show
     deck = Deck.find(params[:id])
-    render json: { deck: DeckSerializer.new(deck) }, status: :accepted
+    fav_deck = FavDeck.find_by(user_id: current_user.id, deck_id: deck.id)
+    render json: { deck: DeckSerializer.new(deck), fav_deck: fav_deck }, status: :accepted
   end
 
   def create
@@ -27,9 +28,30 @@ class Api::V1::DecksController < ApplicationController
 
   def destroy
     deck = Deck.find(params[:id])
-    if deck.user_created_id == current_user.id
-      deck.destroy
-      render json: { success: "Deck deleted" }
+    deck.destroy
+    if !deck.save
+      render json: { success: "Deck deleted" }, status: :accepted
+    else
+      render json: { error: "Failed to delete deck"}, status: :not_acceptable
+    end
+  end
+
+  def favorite
+    fav_deck = FavDeck.create(deck_id: params[:deck_id], user_id: current_user.id)
+    if fav_deck.valid?
+      render json: { fav_deck: fav_deck }, status: :accepted
+    else
+      render json: { error: "Failed to favorite deck" }, status: :not_acceptable
+    end
+  end
+
+  def unfavorite
+    fav_deck = FavDeck.find_by(user_id: current_user.id, deck_id: params[:deck_id])
+    fav_deck.destroy
+    if !fav_deck.save
+      render json: { success: "Deleted fav_deck"}, status: :accepted
+    else
+      render json: { error: "Failed to unfavorite deck"}, status: :not_acceptable
     end
   end
 

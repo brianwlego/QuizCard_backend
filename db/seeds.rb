@@ -41,7 +41,7 @@ Choice.create(content: "Florida", answer: false, question_id: q_3.id)
 d = Deck.create(category: "Ruby", title: "RegEx", img_url:"", user_created_id: 1)
 
 Card.create(front: ".", back: "Match any character", deck_id: d.id)
-Card.create(front: "\\", back: "escape regex special characters", deck_id: d.id)
+Card.create(front: "\\", back: "Escape regex special characters", deck_id: d.id)
 Card.create(front: "character class delimiter", back: "[]  ex. Would look to match any 1 of the set [aeiou] [A-Z] [a-z]", deck_id: d.id)
 Card.create(front: "create a range within a character class", back: "-  ex. [a-z] [A-Z] [0-9]", deck_id: d.id)
 Card.create(front: "invert the set of characters in a class, i.e. 'not'", back: "^  ex. [^0-9] [^a-z]", deck_id: d.id)
