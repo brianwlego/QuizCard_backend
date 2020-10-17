@@ -28,6 +28,7 @@ class Api::V1::DecksController < ApplicationController
 
   def destroy
     deck = Deck.find(params[:id])
+    deck.profile_picture.purge_later
     deck.destroy
     if !deck.save
       render json: { success: "Deck deleted" }, status: :accepted

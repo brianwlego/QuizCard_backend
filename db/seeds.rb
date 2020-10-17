@@ -2,9 +2,27 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 Choice.delete_all
 Question.delete_all
+FavQuiz.delete_all
 Quiz.delete_all
 Card.delete_all
+FavDeck.delete_all
 Deck.delete_all
+
+20.times  do |i|
+  response = Unirest.get("https://opentdb.com/api.php?amount=10&category=13&type=multiple")
+  hash = response.body
+  length = hash["results"].length
+  q = Quiz.create(category: hash["results"][0]["category"], title: "#{hash["results"][0]["category"]} #{i+1}", user_created_id: 1)
+  count = 0
+  while count < length
+    qq_1 = Question.create(content: hash["results"][count]["question"], quiz_id: q.id)
+    cc_1 = Choice.create(content: hash["results"][count]["correct_answer"], answer: true, question_id: qq_1.id)
+    cc_2 = Choice.create(content: hash["results"][count]["incorrect_answers"][0], answer: false, question_id: qq_1.id )
+    cc_3 = Choice.create(content: hash["results"][count]["incorrect_answers"][1], answer: false, question_id: qq_1.id )
+    cc_4 = Choice.create(content: hash["results"][count]["incorrect_answers"][2], answer: false, question_id: qq_1.id )
+    count += 1
+  end
+end
 
 
 #### QUIZ DATA ####

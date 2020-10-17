@@ -32,6 +32,7 @@ class Api::V1::QuizzesController < ApplicationController
   def destroy
     quiz = Quiz.find(params[:id])
     quiz.questions.each{|question| question.destroy}
+    quiz.profile_picture.purge_later
     quiz.destroy
     if !quiz.save
       render json: { success: "Quiz deleted" }, status: :accepted
