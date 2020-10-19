@@ -23,7 +23,20 @@ class Api::V1::DecksController < ApplicationController
   end
 
   def update
+    deck = Deck.find(params[:id])
+    deck.update(deck_params)
+    if params[:newimg] != ''
+      deck.profile_picture.purge
+      deck.profile_picture.attach(params[:newimg])
+      deck.img_url = url_for(deck.profile_picture)
+      deck.save
+    end
 
+    if deck.valid?
+      render json: { deck: DeckSerializer.new(deck) }, status: :accepted
+    else
+      render json: { error: "Failed to update deck" }, status: :not_acceptable
+    end
   end
 
   def destroy

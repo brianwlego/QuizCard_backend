@@ -11,6 +11,7 @@ class Api::V1::QuestionsController < ApplicationController
 
   def update
     question = Question.find(params[:id])
+    question.quiz.scores.delete_all
     question.update(question_params)
     if question.valid?
       render json: { question: QuestionSerializer.new(question)}, status: :accepted

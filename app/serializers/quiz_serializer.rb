@@ -1,5 +1,7 @@
 class QuizSerializer < ActiveModel::Serializer
-  attributes :id, :category, :title, :img_url, :questions, :created_at, :made_by
+  attributes :id, :category, :title, :img_url, :questions, :created_at, :updated_at, :made_by
+
+  has_many :scores
 
   def made_by
     user = User.find(object.user_created_id)
@@ -10,6 +12,7 @@ class QuizSerializer < ActiveModel::Serializer
     object.questions.map do |question| 
       {content: question.content,
         id: question.id,
+        num: question.num,
         img_url: question.img_url,
         quiz_id: question.quiz_id,
         choices: question.choices.map do |choice|

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       resources :quizzes do 
         post '/favorite', to: 'quizzes#favorite'
         delete '/unfavorite', to: 'quizzes#unfavorite'
+        post '/createscore', to: 'quizzes#create_score'
+        delete '/destroyscore', to: 'quizzes#destroy_score'
         resources :questions, only: [:update, :show, :create, :destroy] 
       end
       resources :decks do 

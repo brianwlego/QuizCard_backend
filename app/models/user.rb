@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :fav_decks
   has_many :quizzes, through: :fav_quizs
   has_many :decks, through: :fav_decks
+  has_many :scores
 
   has_one_attached :profile_picture
 
@@ -37,6 +38,11 @@ class User < ApplicationRecord
     decks_array = decks.map{|deck| DeckSerializer.new(deck)}
     combined_array = quizzes_array + decks_array
     return combined_array
+  end
+
+  def user_scores
+    scores_array = self.scores.map{|score| ScoreSerializer.new(score)}
+    return scores_array
   end
 
 

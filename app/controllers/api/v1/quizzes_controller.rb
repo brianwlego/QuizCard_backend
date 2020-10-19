@@ -26,7 +26,20 @@ class Api::V1::QuizzesController < ApplicationController
   end
 
   def update
+    quiz = Quiz.find(params[:id])
+    quiz.update(quiz_params)
+    if params[:newimg] != ''
+      quiz.profile_picture.purge
+      quiz.profile_picture.attach(params[:newimg])
+      quiz.img_url = url_for(quiz.profile_picture)
+      quiz.save
+    end
 
+    if quiz.valid?
+      render json: { quiz: QuizSerializer.new(quiz) }, status: :accepted
+    else
+      render json: { error: "Failed to update quiz" }, status: :not_acceptable
+    end
   end
 
   def destroy
@@ -58,6 +71,19 @@ class Api::V1::QuizzesController < ApplicationController
     else
       render json: { error: "Failed to unfavorite quiz"}, status: :not_acceptable
     end
+  end
+
+  def create_score
+    score = Score.create(user_id: current_user.id, quiz_id: params[:quiz_id], percent: params[:score][:percent], right: params[:score][:right], wrong: params[:score][:wrong], chosen: params[:score][:chosen])
+    if score.valid?
+      render json: { score: ScoreSerializer.new(score) }, status: :accepted
+    else
+      render json: { error: "Failed to create new score"}, status: :not_acceptable
+    end
+  end
+
+  def destroy_score
+
   end
 
 

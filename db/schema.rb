@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_07_203821) do
+ActiveRecord::Schema.define(version: 2020_10_18_223534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_10_07_203821) do
   create_table "cards", force: :cascade do |t|
     t.string "front"
     t.string "back"
+    t.integer "num"
     t.string "img_url_front"
     t.string "img_url_back"
     t.bigint "deck_id", null: false
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_10_07_203821) do
   create_table "questions", force: :cascade do |t|
     t.string "content"
     t.string "img_url"
+    t.integer "num"
     t.bigint "quiz_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -100,6 +102,19 @@ ActiveRecord::Schema.define(version: 2020_10_07_203821) do
     t.integer "user_created_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "scores", force: :cascade do |t|
+    t.bigint "quiz_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "percent"
+    t.string "right"
+    t.string "wrong"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "chosen"
+    t.index ["quiz_id"], name: "index_scores_on_quiz_id"
+    t.index ["user_id"], name: "index_scores_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -120,4 +135,6 @@ ActiveRecord::Schema.define(version: 2020_10_07_203821) do
   add_foreign_key "fav_quizzes", "quizzes"
   add_foreign_key "fav_quizzes", "users"
   add_foreign_key "questions", "quizzes"
+  add_foreign_key "scores", "quizzes"
+  add_foreign_key "scores", "users"
 end

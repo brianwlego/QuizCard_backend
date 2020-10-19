@@ -8,7 +8,8 @@ class Api::V1::UsersController < ApplicationController
   def populate
     decks_and_quizzes_array = current_user.user_creations
     favs_array = current_user.user_favs
-    render json:  {decks_quizzes: decks_and_quizzes_array, user_favs: favs_array}, status: :accepted
+    scores_array = current_user.user_scores
+    render json:  {decks_quizzes: decks_and_quizzes_array, user_favs: favs_array, scores: scores_array}, status: :accepted
   end
 
   def home 
