@@ -1,5 +1,9 @@
 class Api::V1::DecksController < ApplicationController
+  skip_before_action :authorized, only: [:index]
 
+  def index
+    paginate Deck.unscoped, per_page: 30
+  end
 
   def show
     deck = Deck.find(params[:id])

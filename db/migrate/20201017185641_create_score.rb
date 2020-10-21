@@ -6,6 +6,7 @@ class CreateScore < ActiveRecord::Migration[6.0]
       t.integer :percent
       t.string :right
       t.string :wrong
+      t.string :chosen
 
       t.timestamps
     end

@@ -1,7 +1,8 @@
 class Api::V1::QuizzesController < ApplicationController
+  skip_before_action :authorized, only: [:index]
 
   def index
-    quizzes = Quiz.all 
+    paginate Quiz.unscoped, per_page: 30
   end
 
   def show

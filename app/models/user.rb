@@ -10,17 +10,7 @@ class User < ApplicationRecord
   has_one_attached :profile_picture
 
 
-  def fetch_decks
-    decks = Deck.all
-    decks_array = decks.map{|deck| DeckSerializer.new(deck)}
-    return decks_array
-  end
 
-  def fetch_quizzes
-    quizzes = Quiz.all
-    quizzes_array = quizzes.map{|quiz| QuizSerializer.new(quiz)}
-    return quizzes_array
-  end
 
   def user_creations
     quizzes = Quiz.where(user_created_id: self.id)

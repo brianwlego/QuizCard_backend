@@ -63,7 +63,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.3.8)
     aws-eventstream (1.1.0)
-    aws-partitions (1.381.0)
+    aws-partitions (1.384.0)
     aws-sdk-core (3.109.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -72,7 +72,7 @@ GEM
     aws-sdk-kms (1.39.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.83.0)
+    aws-sdk-s3 (1.83.1)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -104,6 +104,18 @@ GEM
     json (1.8.6-java)
     jsonapi-renderer (0.2.2)
     jwt (2.2.2)
+    kaminari (1.2.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
+      actionview
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
+      activerecord
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -133,6 +145,8 @@ GEM
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.10-x86-mingw32)
       mini_portile2 (~> 2.4.0)
+    pager_api (0.3.2)
+    pagy (3.8.3)
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)
     pg (1.2.3-x86-mingw32)
@@ -193,7 +207,7 @@ GEM
     thread_safe (0.3.6-java)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2020.2)
+    tzinfo-data (1.2020.3)
       tzinfo (>= 1.0.0)
     unirest (1.1.2)
       addressable (~> 2.3.5)
@@ -204,6 +218,7 @@ GEM
     websocket-driver (0.7.3-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    will_paginate (3.1.8)
     zeitwerk (2.4.0)
 
 PLATFORMS
@@ -220,7 +235,10 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   jwt (~> 2.2)
+  kaminari
   listen (~> 3.2)
+  pager_api
+  pagy
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rack-cors
@@ -229,6 +247,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   unirest
+  will_paginate (~> 3.1.0)
 
 RUBY VERSION
    ruby 2.6.1p33

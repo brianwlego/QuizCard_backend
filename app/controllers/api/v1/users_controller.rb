@@ -1,9 +1,10 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create, :home]
 
   def profile
     render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
+
 
   def populate
     decks_and_quizzes_array = current_user.user_creations
@@ -13,9 +14,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def home 
-    decks = current_user.fetch_decks
-    quizzes = current_user.fetch_quizzes
-    render json: { decks: decks, quizzes: quizzes }, status: :accepted
+    quizzes = Quiz.select(:id, :category, :title)
+    decks = Deck.select(:id, :category, :title)
+    render json: { quizzes: quizzes, decks: decks}
   end
 
   def create

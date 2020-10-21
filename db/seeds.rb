@@ -1,5 +1,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+require "base64"
+
 Choice.delete_all
 Question.delete_all
 FavQuiz.delete_all
@@ -9,21 +11,37 @@ Card.delete_all
 FavDeck.delete_all
 Deck.delete_all
 
-10.times  do |i|
-  response = Unirest.get("https://opentdb.com/api.php?amount=10&category=13&type=multiple")
-  hash = response.body
-  length = hash["results"].length
-  q = Quiz.create(category: hash["results"][0]["category"], title: "#{hash["results"][0]["category"]} #{i+1}", user_created_id: 1)
-  count = 0
-  while count < length
-    qq_1 = Question.create(content: hash["results"][count]["question"], quiz_id: q.id, num: count + 1)
-    cc_1 = Choice.create(content: hash["results"][count]["correct_answer"], answer: true, question_id: qq_1.id)
-    cc_2 = Choice.create(content: hash["results"][count]["incorrect_answers"][0], answer: false, question_id: qq_1.id )
-    cc_3 = Choice.create(content: hash["results"][count]["incorrect_answers"][1], answer: false, question_id: qq_1.id )
-    cc_4 = Choice.create(content: hash["results"][count]["incorrect_answers"][2], answer: false, question_id: qq_1.id )
-    count += 1
+# response  = Unirest.get "https://quizapi.io/api/v1/questions",
+#   headers:{ "Accept" => "application/json"},
+#   parameters: {"apiKey" => "ApG1HfQDJFp6I5TtMEagqpWX7WgxpAV73xHgYsqr", "limit" => "10", "category" => "Code"}
+# result = response.body
+
+num = 9
+count_num = 33
+while count_num > num
+
+  10.times  do |i|
+    response = Unirest.get("https://opentdb.com/api.php?amount=#{rand(3..20)}&category=#{num}&type=multiple&encode=base64")
+    hash = response.body
+    
+    length = hash["results"].length
+    q = Quiz.create(category: Base64.decode64(hash["results"][0]["category"]), title: "#{Base64.decode64(hash["results"][0]["category"])} #{i+1}", user_created_id: 1)
+    count = 0
+    while count < length
+      qq_1 = Question.create(content: Base64.decode64(hash["results"][count]["question"]), quiz_id: q.id, num: count + 1)
+      cc_1 = Choice.create(content: Base64.decode64(hash["results"][count]["correct_answer"]), answer: true, question_id: qq_1.id)
+      cc_2 = Choice.create(content: Base64.decode64(hash["results"][count]["incorrect_answers"][0]), answer: false, question_id: qq_1.id )
+      cc_3 = Choice.create(content: Base64.decode64(hash["results"][count]["incorrect_answers"][1]), answer: false, question_id: qq_1.id )
+      cc_4 = Choice.create(content: Base64.decode64(hash["results"][count]["incorrect_answers"][2]), answer: false, question_id: qq_1.id )
+      count += 1
+    end
   end
+  num += 1
+  puts "Created Category #{num}"
 end
+
+
+
 
 
 #### QUIZ DATA ####
