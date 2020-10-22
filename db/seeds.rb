@@ -25,9 +25,15 @@ while count_num > num
     hash = response.body
     
     length = hash["results"].length
+
     q = Quiz.create(category: Base64.decode64(hash["results"][0]["category"]), title: "#{Base64.decode64(hash["results"][0]["category"])} #{i+1}", user_created_id: 1)
+
+    d = Deck.create(category: Base64.decode64(hash["results"][0]["category"]), title: "#{Base64.decode64(hash["results"][0]["category"])} #{i+1}", user_created_id: 1)
+
     count = 0
     while count < length
+      card = Card.create(front: Base64.decode64(hash["results"][count]["question"]), back: Base64.decode64(hash["results"][count]["correct_answer"]), num: count + 1, deck_id: d.id)
+
       qq_1 = Question.create(content: Base64.decode64(hash["results"][count]["question"]), quiz_id: q.id, num: count + 1)
       cc_1 = Choice.create(content: Base64.decode64(hash["results"][count]["correct_answer"]), answer: true, question_id: qq_1.id)
       cc_2 = Choice.create(content: Base64.decode64(hash["results"][count]["incorrect_answers"][0]), answer: false, question_id: qq_1.id )
@@ -35,9 +41,13 @@ while count_num > num
       cc_4 = Choice.create(content: Base64.decode64(hash["results"][count]["incorrect_answers"][2]), answer: false, question_id: qq_1.id )
       count += 1
     end
+
   end
   num += 1
   puts "Created Category #{num}"
+
+
+
 end
 
 

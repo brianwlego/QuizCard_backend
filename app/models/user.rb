@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :decks, through: :fav_decks
   has_many :scores
 
+  validates :email, :first_name, :last_name, :password, presence: true
+  validates :email, uniqueness: true
+
   has_one_attached :profile_picture
 
 
