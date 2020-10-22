@@ -6,8 +6,20 @@ Rails.application.routes.draw do
       resources :users, only: [:create]
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
-      resources :quizzes
-      resources :decks 
+      get '/home', to: 'users#home'
+      get '/populate', to: 'users#populate'
+      resources :quizzes do 
+        post '/favorite', to: 'quizzes#favorite'
+        delete '/unfavorite', to: 'quizzes#unfavorite'
+        post '/createscore', to: 'quizzes#create_score'
+        delete '/destroyscore', to: 'quizzes#destroy_score'
+        resources :questions, only: [:update, :show, :create, :destroy] 
+      end
+      resources :decks do 
+        post '/favorite', to: 'decks#favorite'
+        delete '/unfavorite', to: 'decks#unfavorite'
+        resources :cards, only: [:update, :show, :create, :destroy]
+      end
     end
   end
 

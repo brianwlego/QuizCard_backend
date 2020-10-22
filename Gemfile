@@ -43,3 +43,12 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "jwt", "~> 2.2"
 
 gem "active_model_serializers", "~> 0.10.10"
+
+gem "aws-sdk-s3"
+
+gem 'unirest'
+
+gem 'kaminari' 
+gem 'pagy'
+gem 'will_paginate', '~> 3.1.0'
+gem 'pager_api'

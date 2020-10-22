@@ -1,3 +1,6 @@
 class Card < ApplicationRecord
-  belong_to :deck
+  belongs_to :deck
+
+  has_one_attached :picture
+  
 end
