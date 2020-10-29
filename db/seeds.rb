@@ -16,6 +16,8 @@ Deck.delete_all
 #   parameters: {"apiKey" => "ApG1HfQDJFp6I5TtMEagqpWX7WgxpAV73xHgYsqr", "limit" => "10", "category" => "Code"}
 # result = response.body
 
+
+
 num = 9
 count_num = 33
 while count_num > num
@@ -116,4 +118,6 @@ Card.create(front: "Check whether a value would be included in a given range", b
 Card.create(front: "Quotes used with string interpolation", back: "\" double quote", deck_id: d3.id, num: 2)
 Card.create(front: "Ternary syntax", back: "expression ? true_value : false_value", deck_id: d3.id, num: 3)
 Card.create(front: "Nameless methods that are passed to methods as a parameter", back: "blocks", deck_id: d3.id, num: 4)
+
+
 
