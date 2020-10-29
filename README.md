@@ -1,24 +1,7 @@
-# README
+QUIZCARD
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Made By: Brian Lego
 
-Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+For instructions on how to install this application please go to the README.md for the front-end of this project, located here: 
+(https://github.com/brianwlego/QuizCard_frontend)
