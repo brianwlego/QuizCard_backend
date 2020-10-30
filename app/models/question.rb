@@ -5,7 +5,6 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :choices, allow_destroy: true, update_only: true
 
-  has_one_attached :picture
 
 
 end

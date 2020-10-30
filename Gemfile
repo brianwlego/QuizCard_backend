@@ -44,13 +44,13 @@ gem "jwt", "~> 2.2"
 
 gem "active_model_serializers", "~> 0.10.10"
 
-gem "aws-sdk-s3"
+gem "aws-sdk-s3", require: false
 
 gem 'unirest'
 
 gem 'dotenv-rails'
 
-gem 'kaminari' 
+gem 'kaminari'
 gem 'pagy'
-gem 'will_paginate', '~> 3.1.0'
 gem 'pager_api'
+gem 'will_paginate', '~> 3.1.0'

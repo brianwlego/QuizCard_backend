@@ -13,8 +13,6 @@ class User < ApplicationRecord
   has_one_attached :profile_picture
 
 
-
-
   def user_creations
     quizzes = Quiz.where(user_created_id: self.id)
     quizzes_array = quizzes.map{|quiz| QuizSerializer.new(quiz)}
