@@ -82,5 +82,5 @@ production:
   <<: *default
   database: postgresql
   username: 
-  password: 
+  password: <%= ENV['PROJECT_DATABASE_PASSWORD'] %>
 
