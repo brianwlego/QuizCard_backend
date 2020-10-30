@@ -22,7 +22,7 @@ num = 9
 count_num = 33
 while count_num > num
 
-  10.times  do |i|
+  5.times  do |i|
     response = Unirest.get("https://opentdb.com/api.php?amount=#{rand(3..20)}&category=#{num}&type=multiple&encode=base64")
     hash = response.body
     
