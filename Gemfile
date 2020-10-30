@@ -48,6 +48,8 @@ gem "aws-sdk-s3"
 
 gem 'unirest'
 
+gem 'dotenv-rails'
+
 gem 'kaminari' 
 gem 'pagy'
 gem 'will_paginate', '~> 3.1.0'
