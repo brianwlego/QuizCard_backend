@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: backend_mod5_project_production
+  database: postgresql
   username: backend_mod5_project
   password: <%= ENV['BACKEND_MOD5_PROJECT_DATABASE_PASSWORD'] %>
+
