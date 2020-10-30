@@ -81,6 +81,6 @@ test:
 production:
   <<: *default
   database: postgresql
-  username: backend_mod5_project
-  password: <%= ENV['BACKEND_MOD5_PROJECT_DATABASE_PASSWORD'] %>
+  username: 
+  password: <%= ENV['PROJECT_DATABASE_PASSWORD'] %>
 
