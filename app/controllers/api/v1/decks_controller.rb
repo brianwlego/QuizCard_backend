@@ -1,5 +1,5 @@
 class Api::V1::DecksController < ApplicationController
-  skip_before_action :authorized, only: [:index]
+  skip_before_action :authorized, only: [:index, :show]
 
   def index
     paginate Deck.unscoped, per_page: 30
