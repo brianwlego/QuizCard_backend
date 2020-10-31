@@ -7,7 +7,9 @@ class Api::V1::QuizzesController < ApplicationController
 
   def show
     quiz = Quiz.find(params[:id])
-    fav_quiz = FavQuiz.find_by(user_id: current_user.id, quiz_id: quiz.id)
+    if current_user
+      fav_quiz = FavQuiz.find_by(user_id: current_user.id, quiz_id: quiz.id)
+    end
     render json: { quiz: QuizSerializer.new(quiz), fav_quiz: fav_quiz }
   end
 

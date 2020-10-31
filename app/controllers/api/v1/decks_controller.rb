@@ -7,7 +7,9 @@ class Api::V1::DecksController < ApplicationController
 
   def show
     deck = Deck.find(params[:id])
-    fav_deck = FavDeck.find_by(user_id: current_user.id, deck_id: deck.id)
+    if current_user
+      fav_deck = FavDeck.find_by(user_id: current_user.id, deck_id: deck.id)
+    end
     render json: { deck: DeckSerializer.new(deck), fav_deck: fav_deck }, status: :accepted
   end
 
