@@ -10,7 +10,6 @@ class User < ApplicationRecord
   validates :email, :first_name, :last_name, :password, presence: true
   validates :email, uniqueness: true
 
-  has_one_attached :profile_picture
 
 
   def user_creations
@@ -34,6 +33,15 @@ class User < ApplicationRecord
   def user_scores
     scores_array = self.scores.map{|score| ScoreSerializer.new(score)}
     return scores_array
+  end
+
+
+  def save_image(image, user)
+    name = File.basename(image)
+    obj = S3_BUCKET.object(name)
+    obj.upload_file(image)
+    user.img_url = obj.public_url.to_s
+    user.save
   end
 
 
