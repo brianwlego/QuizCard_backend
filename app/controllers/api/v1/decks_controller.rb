@@ -16,8 +16,7 @@ class Api::V1::DecksController < ApplicationController
   def create
     deck = Deck.create(deck_params)
     if params[:img] != ''
-      deck.profile_picture.attach(params[:img])
-      deck.img_url = url_for(deck.profile_picture)
+      deck.save_image(params[:img], deck)
     end
     deck.user_created_id = current_user.id
     deck.save
@@ -32,10 +31,7 @@ class Api::V1::DecksController < ApplicationController
     deck = Deck.find(params[:id])
     deck.update(deck_params)
     if params[:newimg] != ''
-      deck.profile_picture.purge
-      deck.profile_picture.attach(params[:newimg])
-      deck.img_url = url_for(deck.profile_picture)
-      deck.save
+      deck.save_image(params[:newimg], deck)
     end
 
     if deck.valid?
@@ -47,7 +43,6 @@ class Api::V1::DecksController < ApplicationController
 
   def destroy
     deck = Deck.find(params[:id])
-    deck.profile_picture.purge_later
     deck.destroy
     if !deck.save
       render json: { success: "Deck deleted" }, status: :accepted

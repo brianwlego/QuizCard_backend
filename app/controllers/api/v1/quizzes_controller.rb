@@ -16,8 +16,7 @@ class Api::V1::QuizzesController < ApplicationController
   def create
     quiz = Quiz.create(quiz_params)
     if params[:img] != ''
-      quiz.profile_picture.attach(params[:img])
-      quiz.img_url = url_for(quiz.profile_picture)
+      quiz.save_image(params[:img], quiz)
     end
     quiz.user_created_id = current_user.id
     quiz.save
@@ -32,10 +31,7 @@ class Api::V1::QuizzesController < ApplicationController
     quiz = Quiz.find(params[:id])
     quiz.update(quiz_params)
     if params[:newimg] != ''
-      quiz.profile_picture.purge
-      quiz.profile_picture.attach(params[:newimg])
-      quiz.img_url = url_for(quiz.profile_picture)
-      quiz.save
+      quiz.save_image(params[:newimg], quiz)
     end
 
     if quiz.valid?
@@ -48,7 +44,6 @@ class Api::V1::QuizzesController < ApplicationController
   def destroy
     quiz = Quiz.find(params[:id])
     quiz.questions.each{|question| question.destroy}
-    quiz.profile_picture.purge_later
     quiz.destroy
     if !quiz.save
       render json: { success: "Quiz deleted" }, status: :accepted
