@@ -5,6 +5,9 @@ class Api::V1::UsersController < ApplicationController
     render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
+  def wakeup
+    render json: "I'm awake!"
+  end
 
   def populate
     decks_and_quizzes_array = current_user.user_creations
