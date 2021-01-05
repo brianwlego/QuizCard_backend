@@ -6,7 +6,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def wakeup
-    render json: "I'm awake!"
+    render json: { msg: "I'm awake!" }
   end
 
   def populate
